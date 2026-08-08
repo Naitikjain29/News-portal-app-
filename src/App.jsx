@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -21,6 +22,7 @@ const App = () => {
       </main>
 
       <Footer />
+      <ToastContainer/>
     </div>
   );
 };
