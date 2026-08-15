@@ -7,7 +7,7 @@ const NewsCard = ({ news }) => {
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full border border-black-500">
       {/* Article Image with Fallback */}
-      <div className="h-48 w-full overflow-hidden bg-gray-100 relative">
+      <div className="h-60 w-full overflow-hidden bg-gray-100 relative">
         <img
           src={news.image || 'https://via.placeholder.com/600x400?text=News+Image'}
           alt={news.title || 'News'}

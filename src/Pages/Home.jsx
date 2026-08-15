@@ -1,22 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
-import { getTopHeadLines } from '../services/apiService';
-import Loader from '../Components/Loader';
-import NewsCard from '../Components/NewsCard';
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
-const Home = () => {
+import {
+  getCategoryNews,
+  getTopHeadLines,
+} from "../services/apiService";
+
+import Loader from "../Components/Loader";
+import NewsCard from "../Components/NewsCard";
+
+const Home = ({
+  category = "general",
+  searchedNews,
+  isSearching,
+  search,
+  clearSearch,
+}) => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchNews = async () => {
-      try {
-        const articles = await getTopHeadLines();
-        console.log('Fetched Articles:', articles); // Now logged properly
+      // Search results already available
+      if (isSearching && searchedNews !== null) {
+        setNews(searchedNews);
+        setLoading(false);
+        return;
+      }
 
-        setNews(articles || []);
+      try {
+        setLoading(true);
+
+        let data;
+
+        if (category === "general") {
+          data = await getTopHeadLines();
+        } else {
+          data = await getCategoryNews(category);
+        }
+
+        setNews(data);
       } catch (error) {
-        console.error('Failed to fetch news:', error);
+        console.error("Failed to fetch news:", error);
         toast.error("Something went wrong :(");
       } finally {
         setLoading(false);
@@ -24,73 +49,84 @@ const Home = () => {
     };
 
     fetchNews();
-  }, []);
+  }, [category, searchedNews, isSearching]);
 
   if (loading) {
-    return <Loader size="medium" />;
+    return <Loader />;
   }
 
   return (
-    <div className="container mx-auto px-4">
-      {/* Red Hero Banner Section */}
-      <div className="mx-auto my-6 py-12 px-6 bg-red-600 rounded-2xl shadow-lg text-center">
-        <style>
-          {`
-            html {
-              scroll-behavior: smooth;
-            }
-            @keyframes fadeInUp {
-              from { opacity: 0; transform: translateY(20px); }
-              to { opacity: 1; transform: translateY(0); }
-            }
-            .animate-hero-title {
-              animation: fadeInUp 0.6s ease-out forwards;
-            }
-            .animate-hero-subtitle {
-              animation: fadeInUp 0.6s ease-out 0.2s forwards;
-              opacity: 0;
-            }
-            .animate-hero-btn {
-              animation: fadeInUp 0.6s ease-out 0.4s forwards;
-              opacity: 0;
-            }
-          `}
-        </style>
+    <div>
 
-        <h1 className="animate-hero-title text-4xl sm:text-5xl font-extrabold text-white mb-4 tracking-tight">
-          Welcome To NewsHub
-        </h1>
+      {/* Hero Banner */}
+      {!isSearching && (
+        <section className="mx-4 mt-6 bg-red-600 rounded-2xl h-[310px] flex flex-col justify-center items-center text-center shadow-lg">
 
-        <p className="animate-hero-subtitle font-bold text-xl sm:text-2xl text-white/90 mb-8 max-w-2xl mx-auto">
-          Read the latest news from around the world.
-        </p>
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4 tracking-tight">
+            Welcome To NewsHub
+          </h1>
 
-        <button
-          onClick={() => {
-            window.scrollTo({
-              top: window.innerHeight * 0.5,
-              behavior: 'smooth'
-            });
-          }}
-          className="animate-hero-btn inline-block bg-white text-red-600 font-bold text-lg px-8 py-5 rounded-full shadow-md hover:bg-gray-100 hover:scale-105 transition-all duration-300 cursor-pointer"
-        >
-          Explore News ↓
-        </button>
+          <p className="font-bold text-xl sm:text-2xl text-white/90 mb-8 max-w-2xl">
+            Read the latest news from around the world.
+          </p>
+
+          <button
+            onClick={() => {
+              window.scrollTo({
+                top: window.innerHeight * 0.7,
+                behavior: "smooth",
+              });
+            }}
+            className="bg-white text-red-600 font-bold text-lg px-8 py-5 rounded-full shadow-md hover:bg-gray-100 hover:scale-105 transition-all duration-300"
+          >
+            Explore News ↓
+          </button>
+
+        </section>
+      )}
+
+      {/* Heading */}
+      <div className="max-w-7xl mx-auto px-4 pt-8">
+
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+
+          <h2 className="text-2xl font-bold capitalize">
+            {isSearching
+              ? `Search Results for "${search}"`
+              : `${category} News`}
+          </h2>
+
+          {isSearching && (
+            <button
+              onClick={clearSearch}
+              className="text-sm text-red-600 hover:underline font-medium"
+            >
+              ← Back to {category} news
+            </button>
+          )}
+
+        </div>
+
       </div>
 
       {/* News Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 py-6">
+      <div className="max-w-7xl mx-auto px-4 py-6 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
         {news && news.length > 0 ? (
-          // Use parentheses () for implicit return in map
           news.map((n, index) => (
-            <NewsCard key={n.url || index} news={n} />
+            <NewsCard
+              key={n.url || index}
+              news={n}
+            />
           ))
         ) : (
           <p className="text-center col-span-full text-gray-500">
             No news articles available.
           </p>
         )}
+
       </div>
+
     </div>
   );
 };
