@@ -5,9 +5,9 @@ const NewsCard = ({ news }) => {
   if (!news) return null;
 
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full border border-black-500">
+    <div className="w-full max-w-lg mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full border border-gray-200 dark:border-gray-700">
       {/* Article Image with Fallback */}
-      <div className="h-60 w-full overflow-hidden bg-gray-100 relative">
+      <div className="h-64 w-full overflow-hidden bg-gray-100 dark:bg-gray-700 relative">
         <img
           src={news.image || 'https://via.placeholder.com/600x400?text=News+Image'}
           alt={news.title || 'News'}
@@ -20,11 +20,11 @@ const NewsCard = ({ news }) => {
       </div>
 
       {/* Card Content */}
-      <div className="p-5 flex flex-col flex-grow justify-between ">
+      <div className="p-5 flex flex-col flex-grow justify-between">
         <div>
           {/* Source Name & Date Header */}
-          <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
-            <span className="font-semibold text-red-600 bg-red-50 px-2.5 py-1 rounded-full uppercase tracking-wider">
+          <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-2">
+            <span className="font-semibold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/50 px-2.5 py-1 rounded-full uppercase tracking-wider">
               {news.source?.name || 'General News'}
             </span>
             <span>
@@ -39,12 +39,12 @@ const NewsCard = ({ news }) => {
           </div>
 
           {/* Title */}
-          <h2 className="text-lg font-bold text-gray-800 hover:text-red-600 transition-colors line-clamp-2 mb-2">
+          <h2 className="text-xl font-bold text-gray-800 dark:text-white hover:text-red-600 dark:hover:text-red-400 transition-colors line-clamp-2 mb-2">
             {news.title}
           </h2>
 
           {/* Description */}
-          <p className="text-sm text-gray-600 line-clamp-3 mb-4 leading-relaxed">
+          <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-3 mb-4 leading-relaxed">
             {news.description || 'No description available for this article.'}
           </p>
         </div>

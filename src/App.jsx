@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import NotFound from "./pages/NotFound";
+import Home from "./Pages/Home";
+import About from "./Pages/About";
+import Contact from "./Pages/Contact";
+import PrivacyPolicy from "./Pages/PrivacyPolicy";
+import TermsAndConditions from "./Pages/TermsAndConditions";
+import Career from "./Pages/Career";
+import NotFound from "./Pages/NotFound";
 
-import Navbar from "./components/Navbar";
-import Category from "./components/Category";
+import Navbar from "./Components/Navbar";
+import Category from "./Components/Category";
 import Footer from "./Components/Footer";
 
 import { searchNews } from "./services/apiService";
@@ -20,6 +23,22 @@ const App = () => {
   const [search, setSearch] = useState("");
   const [searchedNews, setSearchedNews] = useState(null);
   const [isSearching, setIsSearching] = useState(false);
+
+  // Dark Mode
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem("theme") === "dark"
+  );
+
+  // Apply Dark Mode
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
 
   // Search function
   const handleSearch = async (e) => {
@@ -49,23 +68,28 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-white dark:bg-[#0f172a] text-gray-900 dark:text-white transition-colors duration-300">
 
+      {/* Navbar */}
       <Navbar
         search={search}
         setSearch={setSearch}
         handleSearch={handleSearch}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
       />
 
-      {/* ONLY ONE CATEGORY */}
+      {/* Category */}
       <Category
         category={category}
         setCategory={setCategory}
       />
 
+      {/* Main Content */}
       <main className="flex-grow">
         <Routes>
 
+          {/* Home */}
           <Route
             path="/"
             element={
@@ -79,16 +103,37 @@ const App = () => {
             }
           />
 
+          {/* About */}
           <Route
             path="/about"
             element={<About />}
           />
 
+          {/* Contact */}
           <Route
             path="/contact"
             element={<Contact />}
           />
 
+          {/* Privacy Policy */}
+          <Route
+            path="/privacy-policy"
+            element={<PrivacyPolicy />}
+          />
+
+          {/* Terms & Conditions */}
+          <Route
+            path="/terms-and-conditions"
+            element={<TermsAndConditions />}
+          />
+
+          {/* Career */}
+          <Route
+            path="/career"
+            element={<Career />}
+          />
+
+          {/* 404 */}
           <Route
             path="*"
             element={<NotFound />}
@@ -97,8 +142,10 @@ const App = () => {
         </Routes>
       </main>
 
+      {/* Footer */}
       <Footer />
 
+      {/* Toast */}
       <ToastContainer />
 
     </div>

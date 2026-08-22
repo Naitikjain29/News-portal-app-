@@ -21,7 +21,6 @@ const Home = ({
 
   useEffect(() => {
     const fetchNews = async () => {
-      // Search results already available
       if (isSearching && searchedNews !== null) {
         setNews(searchedNews);
         setLoading(false);
@@ -60,35 +59,72 @@ const Home = ({
 
       {/* Hero Banner */}
       {!isSearching && (
-        <section className="mx-4 mt-6 bg-red-600 rounded-2xl h-[310px] flex flex-col justify-center items-center text-center shadow-lg">
+        <section className="bg-[#0f172a] px-4 sm:px-6 py-6 sm:py-8">
 
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4 tracking-tight">
-            Welcome To NewsHub
-          </h1>
+          <div className="relative overflow-hidden rounded-[30px]
+                          bg-gradient-to-r from-[#ef0000] via-[#d90012] to-[#a90012]
+                          min-h-[300px]
+                          flex items-center justify-center
+                          text-center shadow-xl">
 
-          <p className="font-bold text-xl sm:text-2xl text-white/90 mb-8 max-w-2xl">
-            Read the latest news from around the world.
-          </p>
+            {/* Top Right Decorative Circle */}
+            <div className="absolute -top-24 -right-20
+                            w-64 h-64 rounded-full bg-black/10">
+            </div>
 
-          <button
-            onClick={() => {
-              window.scrollTo({
-                top: window.innerHeight * 0.7,
-                behavior: "smooth",
-              });
-            }}
-            className="bg-white text-red-600 font-bold text-lg px-8 py-5 rounded-full shadow-md hover:bg-gray-100 hover:scale-105 transition-all duration-300"
-          >
-            Explore News ↓
-          </button>
+            {/* Bottom Left Decorative Circle */}
+            <div className="absolute -bottom-28 -left-20
+                            w-64 h-64 rounded-full bg-black/10">
+            </div>
+
+            {/* Hero Content */}
+            <div className="relative z-10 px-5">
+
+              <h1 className="text-4xl sm:text-5xl md:text-6xl
+                             font-extrabold text-white
+                             tracking-tight">
+                Welcome To NewsHub
+              </h1>
+
+              <p className="mt-5 text-lg sm:text-xl md:text-2xl
+                            font-medium text-white/95">
+                Read the latest news from around the world.
+              </p>
+
+              <button
+                onClick={() => {
+                  document
+                    .getElementById("news-section")
+                    ?.scrollIntoView({
+                      behavior: "smooth",
+                    });
+                }}
+                className="mt-10 bg-white text-[#ed0000]
+                           font-bold text-lg
+                           px-10 py-5
+                           rounded-full
+                           shadow-lg
+                           hover:bg-gray-100
+                           hover:scale-105
+                           transition-all duration-300"
+              >
+                Explore News ↓
+              </button>
+
+            </div>
+          </div>
 
         </section>
       )}
 
       {/* Heading */}
-      <div className="max-w-7xl mx-auto px-4 pt-8">
+      <div
+        id="news-section"
+        className="max-w-7xl mx-auto px-4 pt-8"
+      >
 
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div className="flex flex-col sm:flex-row
+                        justify-between items-center gap-4">
 
           <h2 className="text-2xl font-bold capitalize">
             {isSearching
@@ -99,7 +135,8 @@ const Home = ({
           {isSearching && (
             <button
               onClick={clearSearch}
-              className="text-sm text-red-600 hover:underline font-medium"
+              className="text-sm text-red-600
+                         hover:underline font-medium"
             >
               ← Back to {category} news
             </button>
@@ -110,7 +147,11 @@ const Home = ({
       </div>
 
       {/* News Grid */}
-      <div className="max-w-7xl mx-auto px-4 py-6 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div
+        className="max-w-7xl mx-auto px-4 py-8
+                   grid md:grid-cols-2 lg:grid-cols-3
+                   gap-x-10 gap-y-12"
+      >
 
         {news && news.length > 0 ? (
           news.map((n, index) => (

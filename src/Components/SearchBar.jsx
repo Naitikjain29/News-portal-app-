@@ -5,40 +5,22 @@ const SearchBar = ({ search, setSearch, handleSearch }) => {
   return (
     <form
       onSubmit={handleSearch}
-      className="relative w-full max-w-md"
+      className="relative w-full"
     >
       <input
         type="text"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        placeholder="Search news..."
-        className="w-full h-11 pl-5 pr-12
-        text-gray-800
-        bg-gray-100
-        border border-gray-300
-        rounded-full
-        outline-none
-        focus:bg-white
-        focus:border-red-500
-        focus:ring-2
-        focus:ring-red-200
-        transition-all"
+        placeholder="Search latest News"
+        className="w-full h-12 pl-6 pr-16 text-gray-800 bg-gray-100 border border-gray-300 rounded-full outline-none focus:bg-white focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all"
       />
 
       <button
         type="submit"
         aria-label="Search"
-        className="absolute right-1 top-1/2
-        -translate-y-1/2
-        w-9 h-9
-        flex items-center justify-center
-        rounded-full
-        text-gray-600
-        hover:text-red-600
-        hover:bg-red-50
-        transition-all"
+        className="absolute right-0 top-0 h-12 w-16 flex items-center justify-center bg-red-600 text-white rounded-r-full hover:bg-red-700 transition"
       >
-        <CiSearch className="w-6 h-6" />
+        <CiSearch size={27} color="white" />
       </button>
     </form>
   );

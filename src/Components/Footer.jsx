@@ -4,7 +4,9 @@ import {
   FaYoutube,
   FaLinkedin,
 } from "react-icons/fa";
+
 import { FaXTwitter } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -13,7 +15,7 @@ const Footer = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
 
-          {/* Logo */}
+          {/* Logo & About */}
           <div>
             <h2 className="text-3xl font-bold text-red-500">
               News<span className="text-white">Hub</span>
@@ -24,26 +26,54 @@ const Footer = () => {
               sports, business, entertainment and world updates in one place.
             </p>
 
+            {/* Social Media */}
             <div className="flex gap-4 mt-6 text-2xl">
-              <a href="#" className="hover:text-blue-500 transition">
+
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-500 transition"
+              >
                 <FaFacebook />
               </a>
 
-              <a href="#" className="hover:text-pink-500 transition">
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-pink-500 transition"
+              >
                 <FaInstagram />
               </a>
 
-              <a href="#" className="hover:text-white transition">
+              <a
+                href="https://x.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition"
+              >
                 <FaXTwitter />
               </a>
 
-              <a href="#" className="hover:text-red-500 transition">
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-red-500 transition"
+              >
                 <FaYoutube />
               </a>
 
-              <a href="#" className="hover:text-blue-400 transition">
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-400 transition"
+              >
                 <FaLinkedin />
               </a>
+
             </div>
           </div>
 
@@ -54,11 +84,52 @@ const Footer = () => {
             </h3>
 
             <ul className="space-y-3">
-              <li><a href="#" className="hover:text-red-500">Politics</a></li>
-              <li><a href="#" className="hover:text-red-500">Sports</a></li>
-              <li><a href="#" className="hover:text-red-500">Technology</a></li>
-              <li><a href="#" className="hover:text-red-500">Business</a></li>
-              <li><a href="#" className="hover:text-red-500">Health</a></li>
+
+              <li>
+                <Link
+                  to="/category/politics"
+                  className="hover:text-red-500 transition"
+                >
+                  Politics
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/category/sports"
+                  className="hover:text-red-500 transition"
+                >
+                  Sports
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/category/technology"
+                  className="hover:text-red-500 transition"
+                >
+                  Technology
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/category/business"
+                  className="hover:text-red-500 transition"
+                >
+                  Business
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/category/health"
+                  className="hover:text-red-500 transition"
+                >
+                  Health
+                </Link>
+              </li>
+
             </ul>
           </div>
 
@@ -69,11 +140,52 @@ const Footer = () => {
             </h3>
 
             <ul className="space-y-3">
-              <li><a href="#" className="hover:text-red-500">About Us</a></li>
-              <li><a href="#" className="hover:text-red-500">Contact</a></li>
-              <li><a href="#" className="hover:text-red-500">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-red-500">Terms & Conditions</a></li>
-              <li><a href="#" className="hover:text-red-500">Careers</a></li>
+
+              <li>
+                <Link
+                  to="/about"
+                  className="hover:text-red-500 transition"
+                >
+                  About Us
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/contact"
+                  className="hover:text-red-500 transition"
+                >
+                  Contact
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/privacy-policy"
+                  className="hover:text-red-500 transition"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/terms-and-conditions"
+                  className="hover:text-red-500 transition"
+                >
+                  Terms & Conditions
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/career"
+                  className="hover:text-red-500 transition"
+                >
+                  Careers
+                </Link>
+              </li>
+
             </ul>
           </div>
 
@@ -93,19 +205,23 @@ const Footer = () => {
               className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 outline-none focus:border-red-500"
             />
 
-            <button className="mt-4 w-full bg-red-600 hover:bg-red-700 py-3 rounded-md font-semibold transition">
+            <button
+              className="mt-4 w-full bg-red-600 hover:bg-red-700 py-3 rounded-md font-semibold transition"
+            >
               Subscribe
             </button>
           </div>
 
         </div>
 
+        {/* Divider */}
         <hr className="border-gray-800 my-8" />
 
+        {/* Bottom Footer */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
 
           <p className="text-sm text-gray-500">
-            © {new Date().getFullYear()} NewsPortal. All Rights Reserved.
+            © {new Date().getFullYear()} NewsHub. All Rights Reserved.
           </p>
 
           <p className="text-sm text-gray-500">
