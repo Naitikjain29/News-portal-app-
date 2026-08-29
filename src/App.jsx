@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 import Home from "./Pages/Home";
@@ -17,7 +17,19 @@ import Footer from "./Components/Footer";
 import { searchNews } from "./services/apiService";
 
 const App = () => {
-  const [category, setCategory] = useState("general");
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Get category from URL
+  const getCategoryFromPath = () => {
+    if (location.pathname.startsWith("/category/")) {
+      return location.pathname.split("/")[2] || "general";
+    }
+
+    return "general";
+  };
+
+  const [category, setCategory] = useState(getCategoryFromPath());
 
   // Search states
   const [search, setSearch] = useState("");
@@ -28,6 +40,31 @@ const App = () => {
   const [darkMode, setDarkMode] = useState(
     localStorage.getItem("theme") === "dark"
   );
+
+  // Update category when URL changes
+  useEffect(() => {
+    const currentCategory = getCategoryFromPath();
+
+    if (currentCategory !== category) {
+      setCategory(currentCategory);
+    }
+  }, [location.pathname]);
+
+  // Handle category change
+  const handleCategoryChange = (newCategory) => {
+    setCategory(newCategory);
+
+    // Clear search when changing category
+    setSearch("");
+    setSearchedNews(null);
+    setIsSearching(false);
+
+    if (newCategory === "general") {
+      navigate("/");
+    } else {
+      navigate(`/category/${newCategory}`);
+    }
+  };
 
   // Apply Dark Mode
   useEffect(() => {
@@ -79,10 +116,10 @@ const App = () => {
         setDarkMode={setDarkMode}
       />
 
-      {/* Category */}
+      {/* Category Navigation */}
       <Category
         category={category}
-        setCategory={setCategory}
+        setCategory={handleCategoryChange}
       />
 
       {/* Main Content */}
@@ -92,6 +129,20 @@ const App = () => {
           {/* Home */}
           <Route
             path="/"
+            element={
+              <Home
+                category="general"
+                searchedNews={searchedNews}
+                isSearching={isSearching}
+                search={search}
+                clearSearch={clearSearch}
+              />
+            }
+          />
+
+          {/* Category Pages */}
+          <Route
+            path="/category/:categoryName"
             element={
               <Home
                 category={category}
@@ -143,11 +194,10 @@ const App = () => {
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Footer setCategory={handleCategoryChange} />
 
       {/* Toast */}
       <ToastContainer />
-
     </div>
   );
 };

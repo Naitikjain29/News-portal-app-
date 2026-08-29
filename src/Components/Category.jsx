@@ -7,11 +7,14 @@ const Category = ({ category, setCategory }) => {
     "health",
     "entertainment",
     "science",
+    "politics",
   ];
 
   return (
-    <div className="bg-white border-t border-gray-100 border-b border-gray-200 shadow-sm">
+    <div className="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 border-b border-gray-200 dark:border-gray-800 shadow-sm">
+
       <div className="max-w-[1600px] mx-auto px-6">
+
         <div className="flex items-center justify-center gap-8 py-3 overflow-x-auto scrollbar-hide">
 
           {categories.map((c) => (
@@ -22,7 +25,7 @@ const Category = ({ category, setCategory }) => {
                 ${
                   category === c
                     ? "text-red-600"
-                    : "text-gray-700 hover:text-red-600"
+                    : "text-gray-700 dark:text-gray-300 hover:text-red-600"
                 }
               `}
             >
@@ -35,7 +38,9 @@ const Category = ({ category, setCategory }) => {
           ))}
 
         </div>
+
       </div>
+
     </div>
   );
 };

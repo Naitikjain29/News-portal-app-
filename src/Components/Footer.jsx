@@ -8,15 +8,21 @@ import {
 import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
-const Footer = () => {
+const Footer = ({ setCategory }) => {
+  const handleCategoryClick = (category) => {
+    setCategory(category);
+  };
+
   return (
     <footer className="bg-gray-950 text-gray-300">
+
       <div className="max-w-7xl mx-auto px-6 py-6">
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
 
           {/* Logo & About */}
           <div>
+
             <h2 className="text-3xl font-bold text-red-500">
               News<span className="text-white">Hub</span>
             </h2>
@@ -75,10 +81,12 @@ const Footer = () => {
               </a>
 
             </div>
+
           </div>
 
           {/* Categories */}
           <div>
+
             <h3 className="text-xl font-semibold text-white mb-5">
               Categories
             </h3>
@@ -87,7 +95,18 @@ const Footer = () => {
 
               <li>
                 <Link
+                  to="/"
+                  onClick={() => handleCategoryClick("general")}
+                  className="hover:text-red-500 transition"
+                >
+                  General
+                </Link>
+              </li>
+
+              <li>
+                <Link
                   to="/category/politics"
+                  onClick={() => handleCategoryClick("politics")}
                   className="hover:text-red-500 transition"
                 >
                   Politics
@@ -97,6 +116,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/category/sports"
+                  onClick={() => handleCategoryClick("sports")}
                   className="hover:text-red-500 transition"
                 >
                   Sports
@@ -106,6 +126,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/category/technology"
+                  onClick={() => handleCategoryClick("technology")}
                   className="hover:text-red-500 transition"
                 >
                   Technology
@@ -115,6 +136,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/category/business"
+                  onClick={() => handleCategoryClick("business")}
                   className="hover:text-red-500 transition"
                 >
                   Business
@@ -124,17 +146,40 @@ const Footer = () => {
               <li>
                 <Link
                   to="/category/health"
+                  onClick={() => handleCategoryClick("health")}
                   className="hover:text-red-500 transition"
                 >
                   Health
                 </Link>
               </li>
 
+              <li>
+                <Link
+                  to="/category/entertainment"
+                  onClick={() => handleCategoryClick("entertainment")}
+                  className="hover:text-red-500 transition"
+                >
+                  Entertainment
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/category/science"
+                  onClick={() => handleCategoryClick("science")}
+                  className="hover:text-red-500 transition"
+                >
+                  Science
+                </Link>
+              </li>
+
             </ul>
+
           </div>
 
           {/* Company */}
           <div>
+
             <h3 className="text-xl font-semibold text-white mb-5">
               Company
             </h3>
@@ -187,10 +232,12 @@ const Footer = () => {
               </li>
 
             </ul>
+
           </div>
 
           {/* Newsletter */}
           <div>
+
             <h3 className="text-xl font-semibold text-white mb-5">
               Newsletter
             </h3>
@@ -210,6 +257,7 @@ const Footer = () => {
             >
               Subscribe
             </button>
+
           </div>
 
         </div>
@@ -231,6 +279,7 @@ const Footer = () => {
         </div>
 
       </div>
+
     </footer>
   );
 };
