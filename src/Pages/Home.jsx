@@ -21,15 +21,16 @@ const Home = ({
 
   useEffect(() => {
     const fetchNews = async () => {
-      if (isSearching && searchedNews !== null) {
-        setNews(searchedNews);
-        setLoading(false);
-        return;
-      }
-
       try {
         setLoading(true);
 
+        // Search results
+        if (isSearching && searchedNews !== null) {
+          setNews(searchedNews);
+          return;
+        }
+
+        // Category / General news
         let data;
 
         if (category === "general") {
@@ -38,10 +39,11 @@ const Home = ({
           data = await getCategoryNews(category);
         }
 
-        setNews(data);
+        setNews(data || []);
       } catch (error) {
         console.error("Failed to fetch news:", error);
         toast.error("Something went wrong :(");
+        setNews([]);
       } finally {
         setLoading(false);
       }
@@ -61,33 +63,41 @@ const Home = ({
       {!isSearching && (
         <section className="bg-[#0f172a] px-4 sm:px-6 py-6 sm:py-8">
 
-          <div className="relative overflow-hidden rounded-[30px]
-                          bg-gradient-to-r from-[#ef0000] via-[#d90012] to-[#a90012]
-                          min-h-[300px]
-                          flex items-center justify-center
-                          text-center shadow-xl">
+          <div
+            className="relative overflow-hidden rounded-[30px]
+                       bg-gradient-to-r from-[#ef0000] via-[#d90012] to-[#a90012]
+                       min-h-[300px]
+                       flex items-center justify-center
+                       text-center shadow-xl"
+          >
 
-            {/* Top Right Decorative Circle */}
-            <div className="absolute -top-24 -right-20
-                            w-64 h-64 rounded-full bg-black/10">
-            </div>
+            {/* Top Right Circle */}
+            <div
+              className="absolute -top-24 -right-20
+                         w-64 h-64 rounded-full bg-black/10"
+            />
 
-            {/* Bottom Left Decorative Circle */}
-            <div className="absolute -bottom-28 -left-20
-                            w-64 h-64 rounded-full bg-black/10">
-            </div>
+            {/* Bottom Left Circle */}
+            <div
+              className="absolute -bottom-28 -left-20
+                         w-64 h-64 rounded-full bg-black/10"
+            />
 
             {/* Hero Content */}
             <div className="relative z-10 px-5">
 
-              <h1 className="text-4xl sm:text-5xl md:text-6xl
-                             font-extrabold text-white
-                             tracking-tight">
+              <h1
+                className="text-4xl sm:text-5xl md:text-6xl
+                           font-extrabold text-white
+                           tracking-tight"
+              >
                 Welcome To NewsHub
               </h1>
 
-              <p className="mt-5 text-lg sm:text-xl md:text-2xl
-                            font-medium text-white/95">
+              <p
+                className="mt-5 text-lg sm:text-xl md:text-2xl
+                           font-medium text-white/95"
+              >
                 Read the latest news from around the world.
               </p>
 
@@ -123,13 +133,17 @@ const Home = ({
         className="max-w-7xl mx-auto px-4 pt-8"
       >
 
-        <div className="flex flex-col sm:flex-row
-                        justify-between items-center gap-4">
+        <div
+          className="flex flex-col sm:flex-row
+                     justify-between items-center gap-4"
+        >
 
           <h2 className="text-2xl font-bold capitalize">
+
             {isSearching
               ? `Search Results for "${search}"`
               : `${category} News`}
+
           </h2>
 
           {isSearching && (
@@ -153,7 +167,7 @@ const Home = ({
                    gap-x-10 gap-y-12"
       >
 
-        {news && news.length > 0 ? (
+        {news.length > 0 ? (
           news.map((n, index) => (
             <NewsCard
               key={n.url || index}
